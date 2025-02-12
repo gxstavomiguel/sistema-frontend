@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/componentes/departamento/read/read.css">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    
+</head>
+<body ng-controller="controllerDepartamento">
+ 
+    
+
+    <div class="read-content">
+        <div class="list-content">
+            
+            <input type="text" ng-model="filtrar">
+     
+            <table>
+                <tr>
+                    <th ng-click="orderByMe('id')">ID</th>
+                    <th ng-click="orderByMe('nome')">Departamento</th>
+                    <th ng-click="orderByMe('descricao')">Descrição</th>
+                    <th ng-click="orderByMe('criadoEm')">Data de criação</th>
+                    <th >Ações</th>
+                </tr>
+      
+                <tr ng-repeat="departamento in departamentos | filter:filtrar | orderBy:myOrderBy ">
+                     <td>{{departamento.id}}</td>
+                    <td>{{departamento.nome}}</td>
+                    <td>{{departamento.descricao}}</td>
+                    <td>{{departamento.criadoEm}}</td>
+                    <td class="actions">
+                        <button class="btn-edit" ng-click="editTabela(departamento.id)">
+                            Editar
+                        </button>
+                        <button class="btn-delete" ng-click="delete(departamento.id);">
+                            Deletar
+                        </button>
+                        
+                    </td>
+                </tr>
+            </table>
+           
+        </div>
+        
+    </div>
+</body>
+</html>  

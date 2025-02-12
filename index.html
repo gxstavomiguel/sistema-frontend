@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="meuSite">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="lib/angular.min.js"></script>
+    <script src="node_modules/angular-route/angular-route.min.js"></script>
+    <script src="node_modules/angular-resource/angular-resource.min.js"></script>
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <title>Index</title>
+  </head>
+  <body id="corpo">
+    <div class="header">
+      <div class="content-header">
+        <a ng-href="#!/main">Home</a>
+        <a ng-href="#!/createDepartamento">Create</a>
+        <a ng-href="#!/readDepartamentos">Read</a>
+      </div>
+    </div>
+
+    <div class="footer">
+      <h1>Footer!</h1>
+    </div>
+
+    <div ng-view></div>
+  </body>
+</html>

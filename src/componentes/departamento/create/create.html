@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../../../../lib/angular.min.js"></script>
+    <script src="../../../../node_modules/angular-route/angular-route.min.js"></script>
+    <script src="../../../../node_modules/angular-resource/angular-resource.min.js"></script>
+    <script src="../../../../main.js"></script>
+    <link
+      rel="stylesheet"
+      href="src/componentes/departamento/create/create.css"
+    />
+  </head>
+  <body id="corpo">
+    <div class="form-content" ng-controller="controllerDepartamento">
+      <form ng-submit="save();">
+        <div class="form-card">
+          <div class="content-h1">
+            <h1>Registro de Departamentos</h1>
+          </div>
+          <div class="space">
+          </div>
+          <label for="nome">Departamento:</label>
+          <input
+            name="departamento"
+            type="text"
+            id="departamento"
+            ng-model="departamento.nome"
+            required
+          />
+
+          <label for="descricao">Descrição</label>
+          <input
+            name="descricao"
+            type="text"
+            id="descricao"
+            ng-model="departamento.descricao"
+            required
+          />
+          <div class="space">
+          </div>
+          <div class="btn-content">
+            <button
+              type="submit"
+              id="btn-salvar"
+              class="primary"
+              ng-disabled="formDepartamento.$invalid"
+            >
+              SALVAR
+            </button>
+          </div>
+        </div>
+        
+      </form>
+    </div>
+
+  </body>
+</html>
