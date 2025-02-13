@@ -1,4 +1,39 @@
 const app = angular.module('meuSite', ['ngRoute', 'ngResource']);
+app.config(function ($routeProvider) {
+    $routeProvider
+        .when('/main', {
+            templateUrl: 'src/componentes/main/main.html',
+            controller: 'controllerDepartamento'
+        })
+        .when('/readDepartamentos', {
+            templateUrl: 'src/componentes/departamento/read/read.html',
+            controller: 'controllerDepartamento'
+        })
+        .when('/createDepartamento', {
+            templateUrl: 'src/componentes/departamento/create/create.html',
+            controller: 'controllerDepartamento'
+        })
+        .when('/editDepartamento/:id', {
+            templateUrl: 'src/componentes/departamento/edit/edit.html',
+            controller: 'controllerDepartamento'
+        })
+        .when('/createChamado/', {
+            templateUrl: 'src/componentes/chamado/create/create.html',
+            controller: 'controllerDepartamento'
+        })
+        .when('/register/', {
+            templateUrl: 'src/componentes/register/register.html',
+            controller: 'controllerLoginRegister'
+        })
+        .when('/login/', {
+            templateUrl: 'src/componentes/login/login.html',
+            controller: 'controllerLoginRegister'
+        })
+        .otherwise({
+            redirectTo: '/register'
+        });
+})
+
 app.controller('controllerDepartamento', function ($scope, $resource, $location, $routeParams) {
     const departamentoFindById = $resource("http://127.0.0.1:8080/api/departamento/findById/:id");
     const departamentoUpdate = $resource("http://127.0.0.1:8080/api/departamento/update/:id",
@@ -23,8 +58,7 @@ app.controller('controllerDepartamento', function ($scope, $resource, $location,
 
         departamentoUpdate.update({ id: $scope.departamento.id }, $scope.departamento,
             function () {
-                alert('Departamento atualizado com sucesso!');
-                $location.path('/readDepartamentos');
+                $location.path('/createDepartamento');
             })
     }
 
@@ -33,17 +67,27 @@ app.controller('controllerDepartamento', function ($scope, $resource, $location,
     };
 
     const departamentoSave = $resource("http://127.0.0.1:8080/api/departamento/save");
+    $scope.modalAberto = false;
+    $scope.abrirModal = function () {
+        $scope.modalAberto = true
+    }
+
+    $scope.fecharModal = function () {
+        $scope.modalAberto = false;
+    }
+
     $scope.save = function () {
-        // if ($scope.departamento.nome && $scope.departamento.descricao) {
-            departamentoSave.save($scope.departamento, function (data) {
-                $scope.retorno = data;
-                $scope.departamento = {
-                    nome: '',
-                    descricao: ''
-                };
-            }
+        departamentoSave.save($scope.departamento, function (data) {
+            $scope.departamento = {
+                nome: '',
+                descricao: ''
+            };
+            $scope.findAll();
+            $scope.fecharModal();
+        }
+        
         );
-        // }
+
     };
 
     const departamentoFindAll = $resource("http://127.0.0.1:8080/api/departamento/findAll");
@@ -60,38 +104,83 @@ app.controller('controllerDepartamento', function ($scope, $resource, $location,
     const departamentoDeleteById = $resource("http://127.0.0.1:8080/api/departamento/delete/:id");
     $scope.delete = function (id) {
         departamentoDeleteById.delete({ id: id }, function () {
-            // alert('deletado');
             $scope.findAll();
         });
     };
 
 });
 
-app.controller('controllerDashboard', function($scope, $resource){
-    $scope.chamados = [];
-    $scope.departamentos = [];
-    $scope.usuarios = [];
+app.factory("DepartamentoService", function ($resource) {
+    return $resource("http://localhost:8080/api/departamento/listaDepartamento", {}, {
+        query: { method: "GET", isArray: true }
+    });
 });
 
-app.config(function ($routeProvider) {
-    $routeProvider
-        .when('/main', {
-            templateUrl: 'src/componentes/main/main.html',
-            controller: 'controllerDepartamento'
+app.controller('controllerLoginRegister', function($scope, DepartamentoService, $resource, $location){
+    const rota = "http://127.0.0.1:8080/api/usuario/";
+
+    $scope.departamentos = [];
+
+    DepartamentoService.query().$promise.then(function(response){
+        $scope.departamentos = response;
+    })
+
+    const usuarioSave = $resource(`${rota}save`);
+    $scope.save = function(){
+        let usuarioData = angular.copy($scope.usuario);
+        usuarioData.departamento = {id: usuarioData.departamento }
+
+
+        usuarioSave.save(usuarioData, function (data){
+            if($scope.usuario.tipo === "ADMIN"){
+                $location.path('/main');
+            } else {
+                $location.path('/createChamado');
+            }
+
+            console.log(data);
+            console.log($scope.usuario.tipo)
+            $scope.usuario = {
+                nome: '',
+                email: '',
+                senha: '',
+                telefone: '',
+                cargo: '',
+                tipo: '',
+                departamento: '',
+            }
         })
-        .when('/readDepartamentos', {
-            templateUrl: 'src/componentes/departamento/read/read.html',
-            controller: 'controllerDepartamento'
-        })
-        .when('/createDepartamento', {
-            templateUrl: 'src/componentes/departamento/create/create.html',
-            controller: 'controllerDepartamento'
-        })
-        .when('/editDepartamento/:id', {
-            templateUrl: 'src/componentes/departamento/edit/edit.html',
-            controller: 'controllerDepartamento'
-        })
-        .otherwise({
-            redirectTo: '/main'
-        });
+    }
+
 })
+
+
+app.controller('controllerChamado', function ($scope, DepartamentoService, $resource) {
+    const rota = "http://127.0.0.1:8080/api/chamado/";
+
+    $scope.departamentos = [];
+    DepartamentoService.query().$promise.then(function(response){
+        $scope.departamentos = response;
+    })
+
+    $scope.prioridades = ["BAIXA", "MEDIA", "ALTA"];
+    $scope.status = ["ABERTO", "EM_ANDAMENTO", "CONCLUIDO"];
+    $scope.departamento = DepartamentoService.query();
+
+    const chamadoSave = $resource(`${rota}save`);
+    $scope.save = function () {
+        let chamadoData = angular.copy($scope.chamado);
+        chamadoData.departamento = {id: chamadoData.departamento }
+
+        chamadoSave.save(chamadoData, function (data) {
+            console.log(data);
+            $scope.chamado = {
+                titulo: '',
+                descricao: '',
+                prioridade: '',
+                departamento: ''
+            }
+        });
+    }
+});
+
