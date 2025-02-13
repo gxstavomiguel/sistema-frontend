@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../../../../lib/angular.min.js"></script>
+    <script src="../../../../node_modules/angular-route/angular-route.min.js"></script>
+    <script src="../../../../node_modules/angular-resource/angular-resource.min.js"></script>
+    <script src="../../../../main.js"></script>
+    <link rel="stylesheet" href="src/componentes/chamado/create/create.css" />
+  </head>
+  <body id="corpo">
+    <div class="form-content" ng-controller="controllerChamado">
+      <form ng-submit="save();">
+        <div class="form-card">
+          <div class="content-h1">
+            <h1>Abertura de Chamado</h1>
+          </div>
+
+          <label for="titulo">Título:</label>
+          <input
+            name="chamado"
+            type="text"
+            id="chamado"
+            ng-model="chamado.titulo"
+            required
+          />
+
+          <label for="descricao">Descrição</label>
+          <input
+            name="descricao"
+            type="text"
+            id="descricao"
+            ng-model="chamado.descricao"
+            required
+          />
+
+          <label for="descricao">Prioridade</label>
+          <select
+            name="prioridade"
+            id="prioridade"
+            ng-model="chamado.prioridade"
+            required
+            ng-options="p for p in prioridades"
+          ></select>
+
+          <label for="descricao">Status</label>
+          <select
+            name="status"
+            id="status"
+            ng-model="chamado.status"
+            required
+            ng-options="s for s in status"
+          ></select>
+
+          <label for="departamento">Departamento:</label>
+          <select
+            name="departamentos"
+            type="text"
+            id="departamentos"
+            ng-model="chamado.departamento"
+            required
+            ng-options="dep.id as dep.nome for dep in departamentos">
+          </select>
+
+          <div class="btn-content">
+            <button type="submit" id="btn-salvar" class="primary">
+              SALVAR
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,44 +16,106 @@
     <div class="form-content" ng-controller="controllerDepartamento">
       <form ng-submit="save();">
         <div class="form-card">
-          <div class="content-h1">
-            <h1>Registro de Departamentos</h1>
-          </div>
-          <div class="space">
-          </div>
-          <label for="nome">Departamento:</label>
-          <input
-            name="departamento"
-            type="text"
-            id="departamento"
-            ng-model="departamento.nome"
-            required
-          />
 
-          <label for="descricao">Descrição</label>
-          <input
-            name="descricao"
-            type="text"
-            id="descricao"
-            ng-model="departamento.descricao"
-            required
-          />
-          <div class="space">
+          <div class="card-area-1">
+            <h1>Filtrar</h1>
+            <br>
+            <p>Como filtrar?</p>
+            <br>
+            <p>Digite o que deseja dentro da caixa correspondente</p>
+            <p>A tabela mostrara confome for filtrando</p>
           </div>
-          <div class="btn-content">
-            <button
-              type="submit"
-              id="btn-salvar"
-              class="primary"
-              ng-disabled="formDepartamento.$invalid"
-            >
-              SALVAR
-            </button>
+
+          <div class="card-area-2">
+            <label for="">ID</label>
+            <input type="text">
+
+            <label for="">Departamento:</label>
+            <input type="text">
+          </div>
+
+          <div class="card-area-3">
+            <button>Filtrar</button>
+          </div>
+          
+        </div>
+
+      </form>
+
+      <div class="space">
+        <button ng-click="abrirModal()">Criar</button>
+        <div class="modal" ng-show="modalAberto">
+          <div class="modal-content">
+            <span class="close" ng-click="fecharModal()">&times;</span>
+
+            <form ng-submit="save();">
+              <div class="modal-sp1"><h1>Adicionar Departamento</h1></div>
+
+              <div class="modal-sp2">
+                <label for="departamento">Departamento:</label>
+                <input
+                  name="departamento"
+                  type="text"
+                  id="departamento"
+                  ng-model="departamento.nome"
+                  required
+                />
+              </div>
+
+              <div class="modal-espaco"></div>
+
+              <div class="modal-sp3">
+                <label for="descricao">Descrição:</label>
+                <input
+                  name="descricao"
+                  type="text"
+                  id="descricao"
+                  ng-model="departamento.descricao"
+                  required
+                />
+              </div>
+
+              <div class="modal-sp4">
+                <button class="btn-modal">Salvar</button>
+              </div>
+            </form>
           </div>
         </div>
-        
-      </form>
-    </div>
+      </div>
 
+      <div class="read-content">
+        <div class="list-content">
+          <!-- <input type="text" ng-model="filtrar" /> -->
+
+          <table>
+            <tr>
+              <th ng-click="orderByMe('id')">ID</th>
+              <th ng-click="orderByMe('nome')">Departamento</th>
+              <th ng-click="orderByMe('descricao')">Descrição</th>
+              <th ng-click="orderByMe('criadoEm')">Data de criação</th>
+              <th>Ações</th>
+            </tr>
+
+            <tr
+              ng-repeat="departamento in departamentos | filter:filtrar | orderBy:myOrderBy"
+              ng-class="{'even': $index % 2 === 0, 'odd': $index % 2 !== 0}"
+            >
+              <td>{{departamento.id}}</td>
+              <td>{{departamento.nome}}</td>
+              <td>{{departamento.descricao}}</td>
+              <td>{{departamento.criadoEm}}</td>
+              <td class="actions">
+                <button class="btn-edit" ng-click="editTabela(departamento.id)">
+                  Editar
+                </button>
+                <button class="btn-delete" ng-click="delete(departamento.id);">
+                  Deletar
+                </button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
