@@ -14,28 +14,36 @@
   </head>
   <body id="corpo">
     <div class="form-content" ng-controller="controllerDepartamento">
-      <form ng-submit="save();">
+      <form>
+        <!-- <form ng-submit="save();"> -->
         <div class="form-card">
 
           <div class="card-area-1">
-            <h1>Filtrar</h1>
-            <br>
-            <p>Como filtrar?</p>
-            <br>
-            <p>Digite o que deseja dentro da caixa correspondente</p>
-            <p>A tabela mostrara confome for filtrando</p>
+
+            <div class="card-area-1-text">
+              <h1>Como Filtrar?</h1>
+              <br>
+              <p>Digite o que deseja dentro da caixa correspondente</p>
+              <p>A tabela atualizara confome for digitando.</p>
+            </div>
           </div>
 
           <div class="card-area-2">
-            <label for="">ID</label>
-            <input type="text">
-
-            <label for="">Departamento:</label>
-            <input type="text">
+            <div class="card-area-2-text">
+              <label for="">ID:</label>
+              <input type="text" ng-model="filtrarId">
+              <br>
+              <label for="">Departamento:</label>
+              <input type="text" ng-model="filtrarDepartamento">
+            </div>
+            
           </div>
 
           <div class="card-area-3">
-            <button>Filtrar</button>
+            <div class="card-area-3-btn">
+              <button class="btn-clean" ng-click="limparCampos()">Limpar Campos</button>
+              <button class="btn-create" ng-click="abrirModal()">Criar</button>
+            </div>
           </div>
           
         </div>
@@ -43,7 +51,7 @@
       </form>
 
       <div class="space">
-        <button ng-click="abrirModal()">Criar</button>
+       
         <div class="modal" ng-show="modalAberto">
           <div class="modal-content">
             <span class="close" ng-click="fecharModal()">&times;</span>
@@ -79,13 +87,14 @@
                 <button class="btn-modal">Salvar</button>
               </div>
             </form>
+
           </div>
         </div>
       </div>
 
       <div class="read-content">
         <div class="list-content">
-          <!-- <input type="text" ng-model="filtrar" /> -->
+      
 
           <table>
             <tr>
@@ -97,7 +106,8 @@
             </tr>
 
             <tr
-              ng-repeat="departamento in departamentos | filter:filtrar | orderBy:myOrderBy"
+              ng-repeat="departamento in departamentos | filter:filtrarDepartamento | filter:filtrarId "
+             
               ng-class="{'even': $index % 2 === 0, 'odd': $index % 2 !== 0}"
             >
               <td>{{departamento.id}}</td>

@@ -6,20 +6,24 @@ app.config(function ($routeProvider) {
             controller: 'controllerDepartamento'
         })
         .when('/readDepartamentos', {
-            templateUrl: 'src/componentes/departamento/read/read.html',
+            templateUrl: 'src/componentes/departamento/read/readDepartamento.html',
             controller: 'controllerDepartamento'
         })
         .when('/createDepartamento', {
-            templateUrl: 'src/componentes/departamento/create/create.html',
+            templateUrl: 'src/componentes/departamento/create/createDepartamento.html',
             controller: 'controllerDepartamento'
         })
         .when('/editDepartamento/:id', {
-            templateUrl: 'src/componentes/departamento/edit/edit.html',
+            templateUrl: 'src/componentes/departamento/edit/editDepartamento.html',
             controller: 'controllerDepartamento'
         })
         .when('/createChamado/', {
-            templateUrl: 'src/componentes/chamado/create/create.html',
-            controller: 'controllerDepartamento'
+            templateUrl: 'src/componentes/chamado/create/createChamado.html',
+            controller: 'controllerChamado'
+        })
+        .when('/readChamado/', {
+            templateUrl: 'src/componentes/chamado/read/readChamado.html',
+            controller: 'controllerChamado'
         })
         .when('/register/', {
             templateUrl: 'src/componentes/register/register.html',
@@ -27,6 +31,10 @@ app.config(function ($routeProvider) {
         })
         .when('/login/', {
             templateUrl: 'src/componentes/login/login.html',
+            controller: 'controllerLoginRegister'
+        })
+        .when('/readUsuario/', {
+            templateUrl: 'src/componentes/usuario/readUsuario.html',
             controller: 'controllerLoginRegister'
         })
         .otherwise({
@@ -91,11 +99,16 @@ app.controller('controllerDepartamento', function ($scope, $resource, $location,
     };
 
     const departamentoFindAll = $resource("http://127.0.0.1:8080/api/departamento/findAll");
+    $scope.limparCampos = function(){
+        $scope.filtrarDepartamento = '';
+        $scope.filtrarId = '';
+    }
     $scope.findAll = function () {
         departamentoFindAll.query(function (data) {
             $scope.departamentos = data;
         });
     };
+    
     $scope.orderByMe = function (x) {
         $scope.myOrderBy = x;
     }
@@ -182,5 +195,35 @@ app.controller('controllerChamado', function ($scope, DepartamentoService, $reso
             }
         });
     }
+
+    const chamadoFindAll = $resource(`${rota}findAll`);
+    $scope.findAll() = function (){
+        console.log(data)
+        chamadoFindAll.query(function(data){
+            $scope.chamados = data;
+        })
+    }
+
+    $scope.click() = function(){
+        console.log('click')
+    }
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
 

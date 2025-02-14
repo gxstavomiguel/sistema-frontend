@@ -25,7 +25,6 @@ body {
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-
   overflow: visible;
 }
 
@@ -68,13 +67,14 @@ body {
   border: none;
   height: 25px;
   color: #fff;
-  background-color: #202420;
+  background-color: #444644;
   border: solid 1px #fff;
 }
 
 .btn-save:hover {
-  background-color: #fff;
+  background-color: #c4c4c4;
   color: #000;
+  border: 1px solid #000;
 }
 
 .space {
