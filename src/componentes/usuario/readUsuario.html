@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <script src="../../../lib/angular.min.js"></script>
+    <script src="../../../node_modules/angular-route/angular-route.min.js"></script>
+    <script src="../../../node_modules/angular-resource/angular-resource.min.js"></script>
+    <script src="../../../main.js"></script> -->
+    <link rel="stylesheet" href="src/componentes/usuario/readUsuario.css" />
+  </head>
+  <body id="corpo">
+    <div class="form-content" ng-controller="controllerLoginRegister">
+     <!--  -->
+     <div class="form-card">
+
+      <div class="card-area-1">
+
+        <div class="card-area-1-text">
+          <h1>Como Filtrar?</h1>
+          <br>
+          <p>Digite o que deseja dentro da caixa correspondente</p>
+          <p>A tabela atualizara confome for digitando.</p>
+        </div>
+      </div>
+
+      <div class="card-area-2">
+        <div class="card-area-2-text">
+          <label for="">Nome:</label>
+          <input type="text" ng-model="filtrarNome">
+          <br>
+          <label for="">Email:</label>
+          <input type="text" ng-model="filtrarEmail">
+        </div>
+      </div>
+
+      <div class="card-area-3">
+        <div class="card-area-3-btn">
+          <button class="btn-clean" ng-click="limparCampos()">Limpar Campos</button>
+          <button class="btn-create" ng-click="abrirModal()">Criar</button>
+        </div>
+      </div>
+      
+    </div>
+    <div class="space"></div>
+    
+    <!--  -->
+      <div class="read-content">
+      <div class="list-content">
+        <table>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Tipo</th>
+            <th>Cargo</th>
+            <th>Atualizado Em</th>
+            <th>Departamento ID</th>
+            <th >Ações</th>
+          </tr>
+
+          <tr
+            ng-repeat="usuario in usuarios | filter:filtrarUsuario | filter:filtrarEmail "
+            ng-class="{'even': $index % 2 === 0, 'odd': $index % 2 !== 0}"
+          >
+            <td>{{usuario.nome}}</td>
+            <td>{{usuario.email}}</td>
+            <td>{{usuario.cargo}}</td>
+            <td>{{usuario.tipo}}</td>
+            <td>{{usuario.telefone}}</td>
+            <td>{{usuario.atualizadoEm}}</td>
+            <td>{{usuario.departamentoId}}</td>
+
+            <td class="actions">
+              <button class="btn-edit" ng-click="editTabela(usuario.id)">
+                Editar
+              </button>
+              <button class="btn-delete" ng-click="delete(usuario.id);">
+                Deletar
+              </button>
+            </td>
+          </tr>
+        </table>
+
+        <!-- <button ng-click="findAll();">Retornar</button>
+            <pre> {{listaUsuarios}}</pre> -->
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

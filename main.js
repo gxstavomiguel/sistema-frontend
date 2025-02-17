@@ -93,13 +93,13 @@ app.controller('controllerDepartamento', function ($scope, $resource, $location,
             $scope.findAll();
             $scope.fecharModal();
         }
-        
+
         );
 
     };
 
     const departamentoFindAll = $resource("http://127.0.0.1:8080/api/departamento/findAll");
-    $scope.limparCampos = function(){
+    $scope.limparCampos = function () {
         $scope.filtrarDepartamento = '';
         $scope.filtrarId = '';
     }
@@ -108,7 +108,7 @@ app.controller('controllerDepartamento', function ($scope, $resource, $location,
             $scope.departamentos = data;
         });
     };
-    
+
     $scope.orderByMe = function (x) {
         $scope.myOrderBy = x;
     }
@@ -129,23 +129,37 @@ app.factory("DepartamentoService", function ($resource) {
     });
 });
 
-app.controller('controllerLoginRegister', function($scope, DepartamentoService, $resource, $location){
+app.factory("UsuarioService", function ($resource) {
+    return $resource("http://localhost:8080/api/usuario/findAll", {}, {
+        get: { method: "GET", isArray: false }
+    });
+});
+
+app.controller('controllerLoginRegister', function ($scope, DepartamentoService, $resource, $location, UsuarioService) {
     const rota = "http://127.0.0.1:8080/api/usuario/";
 
     $scope.departamentos = [];
+    $scope.usuarios = [];
 
-    DepartamentoService.query().$promise.then(function(response){
+    DepartamentoService.query().$promise.then(function (response) {
         $scope.departamentos = response;
     })
 
+    $scope.findAll = 
+    UsuarioService.get((data) => {     
+        $scope.usuarios = data.usuarios;
+        console.log($scope.usuarios)
+        console.log('objeto', data.usuarios)
+    })
+
     const usuarioSave = $resource(`${rota}save`);
-    $scope.save = function(){
+    $scope.save = function () {
         let usuarioData = angular.copy($scope.usuario);
-        usuarioData.departamento = {id: usuarioData.departamento }
+        usuarioData.departamento = { id: usuarioData.departamento }
 
 
-        usuarioSave.save(usuarioData, function (data){
-            if($scope.usuario.tipo === "ADMIN"){
+        usuarioSave.save(usuarioData, function (data) {
+            if ($scope.usuario.tipo === "ADMIN") {
                 $location.path('/main');
             } else {
                 $location.path('/createChamado');
@@ -165,6 +179,44 @@ app.controller('controllerLoginRegister', function($scope, DepartamentoService, 
         })
     }
 
+    $scope.delete = (id) => {
+        usuario
+    }
+
+    const departamentoDeleteById = $resource("http://127.0.0.1:8080/api/departamento/delete/:id");
+    $scope.delete = function (id) {
+        departamentoDeleteById.delete({ id: id }, function () {
+            $scope.findAll();
+        });
+    };
+     
+            
+
+
+        $scope.login = () => {
+        UsuarioService.get((data) => {
+            if (data && data.usuarios) {
+                // console.log('objeto', data.usuarios)
+                // console.log('array', data)
+                const emailInput = $scope.usuario.email;
+                const senhaInput = $scope.usuario.senha;
+
+                let usuarioEncontrado = data.usuarios.find(user => 
+                    user.email === emailInput && user.senha === senhaInput
+                );
+
+                if(usuarioEncontrado){
+                    console.log('achou')
+                    $location.path('/main')
+                } else {
+                    alert('Dados errados')
+                }
+
+            }
+        });
+    };
+
+    
 })
 
 
@@ -172,7 +224,7 @@ app.controller('controllerChamado', function ($scope, DepartamentoService, $reso
     const rota = "http://127.0.0.1:8080/api/chamado/";
 
     $scope.departamentos = [];
-    DepartamentoService.query().$promise.then(function(response){
+    DepartamentoService.query().$promise.then(function (response) {
         $scope.departamentos = response;
     })
 
@@ -183,7 +235,7 @@ app.controller('controllerChamado', function ($scope, DepartamentoService, $reso
     const chamadoSave = $resource(`${rota}save`);
     $scope.save = function () {
         let chamadoData = angular.copy($scope.chamado);
-        chamadoData.departamento = {id: chamadoData.departamento }
+        chamadoData.departamento = { id: chamadoData.departamento }
 
         chamadoSave.save(chamadoData, function (data) {
             console.log(data);
@@ -197,33 +249,9 @@ app.controller('controllerChamado', function ($scope, DepartamentoService, $reso
     }
 
     const chamadoFindAll = $resource(`${rota}findAll`);
-    $scope.findAll() = function (){
-        console.log(data)
-        chamadoFindAll.query(function(data){
+        chamadoFindAll.query(function (data) {
             $scope.chamados = data;
         })
-    }
-
-    $scope.click() = function(){
-        console.log('click')
-    }
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 });
 

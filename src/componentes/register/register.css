@@ -111,3 +111,7 @@ body {
   height: auto; /* Remover qualquer restrição de altura */
   padding: 5px 10px;
 }
+
+a:hover {
+  cursor: pointer;
+}

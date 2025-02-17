@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../../../../lib/angular.min.js"></script>
+    <script src="../../../../node_modules/angular-route/angular-route.min.js"></script>
+    <script src="../../../../node_modules/angular-resource/angular-resource.min.js"></script>
+    <script src="../../../../main.js"></script>
+    <link rel="stylesheet" href="src/componentes/login/login.css" />
+  </head>
+  <body id="corpo">
+    <div class="form-content" ng-controller="controllerLoginRegister">
+
+      <form ng-submit="login()">
+        <div class="form-card">
+          <div class="content-h1">
+            <h1>Login</h1>
+          </div>
+          <div class="space"></div>
+
+          <label for="email">E-mail:</label>
+          <input
+            name="email"
+            type="email"
+            id="email"
+            ng-model="usuario.email"
+            required
+          />
+
+          <label for="senha">Senha:</label>
+          <input
+            name="senha"
+            type="password"
+            id="senha"
+            ng-model="usuario.senha"
+            required
+          />
+
+          <div class="actions">
+            <button
+              type="submit"
+              id="btn-salvar"
+              class="btn-save"
+              ng-disabled="formUsuario.$invalid"
+            >
+              LOGAR
+            </button>
+            <a ng-href="#!/register"> Fazer registro </a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
