@@ -1,6 +1,5 @@
 const app = angular.module('meuSite', ['ngRoute', 'ngResource']);
 
-
 app.config(function ($routeProvider) {
     $routeProvider
         .when('/main', {
@@ -138,6 +137,12 @@ app.factory("UsuarioService", function ($resource) {
     });
 });
 
+app.factory("ChamadoService", function ($resource) {
+    return $resource("http://localhost:8080/api/chamado/findAll", {}, {
+        get: { method: "GET", isArray: false }
+    });
+});
+
 app.controller('controllerLoginRegister', function ($scope, DepartamentoService, $resource, $location, UsuarioService) {
     const rota = "http://127.0.0.1:8080/api/usuario/";
 
@@ -193,9 +198,6 @@ app.controller('controllerLoginRegister', function ($scope, DepartamentoService,
         });
     };
 
-
-
-
     $scope.login = () => {
         UsuarioService.get((data) => {
             if (data && data.usuarios) {
@@ -203,27 +205,20 @@ app.controller('controllerLoginRegister', function ($scope, DepartamentoService,
                 // console.log('array', data)
                 const emailInput = $scope.usuario.email;
                 const senhaInput = $scope.usuario.senha;
-
                 let usuarioEncontrado = data.usuarios.find(user =>
                     user.email === emailInput && user.senha === senhaInput
                 );
-
                 if (usuarioEncontrado) {
-                    console.log('achou')
                     $location.path('/main')
                 } else {
                     alert('Dados errados')
                 }
-
             }
         });
     };
-
-
 })
 
-
-app.controller('controllerChamado', function ($scope, DepartamentoService, $resource, $timeout) {
+app.controller('controllerChamado', function ($scope, DepartamentoService, $resource, $timeout, ChamadoService) {
 
     const rota = "http://127.0.0.1:8080/api/chamado/";
 
@@ -252,12 +247,11 @@ app.controller('controllerChamado', function ($scope, DepartamentoService, $reso
         });
     }
 
-    const chamadoFindAll = $resource(`${rota}findAll`);
-    chamadoFindAll.query(function (data) {
-        $scope.chamados = data;
-        console.log(data)
+    $scope.chamados = [];
+    ChamadoService.get(function (data) {
+         $scope.chamados = data;
+         console.log(data)
     })
-
 
     let graficoExistente = null; // Definir no escopo do controlador
 
