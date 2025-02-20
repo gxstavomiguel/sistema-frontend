@@ -6,13 +6,18 @@
     <script src="../../../../lib/angular.min.js"></script>
     <script src="../../../../node_modules/angular-route/angular-route.min.js"></script>
     <script src="../../../../node_modules/angular-resource/angular-resource.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../../../../main.js"></script>
+     <script src="readChamado.js"></script>
+    <link rel="stylesheet" href="src/componentes/chamado/read/readChamado.css" />
+    
   </head>
   <body id="corpo">
     <div class="form-content" ng-controller="controllerChamado">
-
-        <button ng-click="click()">Tudo</button>
-        {{chamados}}
+    
+        <div class="graficos-barra-content">
+          <canvas id="grafico1"></canvas>
+        </div>
 
     </div>
   </body>

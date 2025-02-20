@@ -1,0 +1,12 @@
+.form-content {
+    background-color: rgb(240, 225, 225);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.graficos-barra-content{
+    width:60%;
+}

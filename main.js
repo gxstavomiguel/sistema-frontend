@@ -1,4 +1,6 @@
 const app = angular.module('meuSite', ['ngRoute', 'ngResource']);
+
+
 app.config(function ($routeProvider) {
     $routeProvider
         .when('/main', {
@@ -106,6 +108,7 @@ app.controller('controllerDepartamento', function ($scope, $resource, $location,
     $scope.findAll = function () {
         departamentoFindAll.query(function (data) {
             $scope.departamentos = data;
+            console.log(data)
         });
     };
 
@@ -145,12 +148,12 @@ app.controller('controllerLoginRegister', function ($scope, DepartamentoService,
         $scope.departamentos = response;
     })
 
-    $scope.findAll = 
-    UsuarioService.get((data) => {     
-        $scope.usuarios = data.usuarios;
-        console.log($scope.usuarios)
-        console.log('objeto', data.usuarios)
-    })
+    $scope.findAll =
+        UsuarioService.get((data) => {
+            $scope.usuarios = data.usuarios;
+            console.log($scope.usuarios)
+            console.log('objeto', data.usuarios)
+        })
 
     const usuarioSave = $resource(`${rota}save`);
     $scope.save = function () {
@@ -189,11 +192,11 @@ app.controller('controllerLoginRegister', function ($scope, DepartamentoService,
             $scope.findAll();
         });
     };
-     
-            
 
 
-        $scope.login = () => {
+
+
+    $scope.login = () => {
         UsuarioService.get((data) => {
             if (data && data.usuarios) {
                 // console.log('objeto', data.usuarios)
@@ -201,11 +204,11 @@ app.controller('controllerLoginRegister', function ($scope, DepartamentoService,
                 const emailInput = $scope.usuario.email;
                 const senhaInput = $scope.usuario.senha;
 
-                let usuarioEncontrado = data.usuarios.find(user => 
+                let usuarioEncontrado = data.usuarios.find(user =>
                     user.email === emailInput && user.senha === senhaInput
                 );
 
-                if(usuarioEncontrado){
+                if (usuarioEncontrado) {
                     console.log('achou')
                     $location.path('/main')
                 } else {
@@ -216,11 +219,12 @@ app.controller('controllerLoginRegister', function ($scope, DepartamentoService,
         });
     };
 
-    
+
 })
 
 
-app.controller('controllerChamado', function ($scope, DepartamentoService, $resource) {
+app.controller('controllerChamado', function ($scope, DepartamentoService, $resource, $timeout) {
+
     const rota = "http://127.0.0.1:8080/api/chamado/";
 
     $scope.departamentos = [];
@@ -249,9 +253,43 @@ app.controller('controllerChamado', function ($scope, DepartamentoService, $reso
     }
 
     const chamadoFindAll = $resource(`${rota}findAll`);
-        chamadoFindAll.query(function (data) {
-            $scope.chamados = data;
-        })
+    chamadoFindAll.query(function (data) {
+        $scope.chamados = data;
+        console.log(data)
+    })
+
+
+    let graficoExistente = null; // Definir no escopo do controlador
+
+    $timeout(function () {
+        const graf = document.getElementById('grafico1');
+
+        if (graf) {
+            // Verifica se já existe um gráfico e o destrói antes de criar um novo
+            if (graficoExistente) {
+                graficoExistente.destroy();
+            }
+
+            graficoExistente = new Chart(graf.getContext('2d'), { // Use getContext('2d')
+                type: 'bar',
+                data: {
+                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [12, 2, 3, 5, 2, 3],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    }, 500);
 
 });
 
