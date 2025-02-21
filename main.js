@@ -1,47 +1,47 @@
 const app = angular.module('meuSite', ['ngRoute', 'ngResource']);
 
-app.config(function ($routeProvider) {
-    $routeProvider
-        .when('/main', {
-            templateUrl: 'src/componentes/main/main.html',
-            controller: 'controllerDepartamento'
-        })
-        .when('/readDepartamentos', {
-            templateUrl: 'src/componentes/departamento/read/readDepartamento.html',
-            controller: 'controllerDepartamento'
-        })
-        .when('/createDepartamento', {
-            templateUrl: 'src/componentes/departamento/create/createDepartamento.html',
-            controller: 'controllerDepartamento'
-        })
-        .when('/editDepartamento/:id', {
-            templateUrl: 'src/componentes/departamento/edit/editDepartamento.html',
-            controller: 'controllerDepartamento'
-        })
-        .when('/createChamado/', {
-            templateUrl: 'src/componentes/chamado/create/createChamado.html',
-            controller: 'controllerChamado'
-        })
-        .when('/readChamado/', {
-            templateUrl: 'src/componentes/chamado/read/readChamado.html',
-            controller: 'controllerChamado'
-        })
-        .when('/register/', {
-            templateUrl: 'src/componentes/register/register.html',
-            controller: 'controllerLoginRegister'
-        })
-        .when('/login/', {
-            templateUrl: 'src/componentes/login/login.html',
-            controller: 'controllerLoginRegister'
-        })
-        .when('/readUsuario/', {
-            templateUrl: 'src/componentes/usuario/readUsuario.html',
-            controller: 'controllerLoginRegister'
-        })
-        .otherwise({
-            redirectTo: '/register'
-        });
-})
+// app.config(function ($routeProvider) {
+//     $routeProvider
+//         .when('/main', {
+//             templateUrl: 'src/componentes/main/main.html',
+//             controller: 'controllerDepartamento'
+//         })
+//         .when('/readDepartamentos', {
+//             templateUrl: 'src/componentes/departamento/read/readDepartamento.html',
+//             controller: 'controllerDepartamento'
+//         })
+//         .when('/createDepartamento', {
+//             templateUrl: 'src/componentes/departamento/create/createDepartamento.html',
+//             controller: 'controllerDepartamento'
+//         })
+//         .when('/editDepartamento/:id', {
+//             templateUrl: 'src/componentes/departamento/edit/editDepartamento.html',
+//             controller: 'controllerDepartamento'
+//         })
+//         .when('/createChamado/', {
+//             templateUrl: 'src/componentes/chamado/create/createChamado.html',
+//             controller: 'controllerChamado'
+//         })
+//         .when('/readChamado/', {
+//             templateUrl: 'src/componentes/chamado/read/readChamado.html',
+//             controller: 'controllerChamado'
+//         })
+//         .when('/register/', {
+//             templateUrl: 'src/componentes/register/register.html',
+//             controller: 'controllerLoginRegister'
+//         })
+//         .when('/login/', {
+//             templateUrl: 'src/componentes/login/login.html',
+//             controller: 'controllerLoginRegister'
+//         })
+//         .when('/readUsuario/', {
+//             templateUrl: 'src/componentes/usuario/readUsuario.html',
+//             controller: 'controllerLoginRegister'
+//         })
+//         .otherwise({
+//             redirectTo: '/register'
+//         });
+// })
 
 app.controller('controllerDepartamento', function ($scope, $resource, $location, $routeParams) {
     const departamentoFindById = $resource("http://127.0.0.1:8080/api/departamento/findById/:id");
@@ -107,7 +107,6 @@ app.controller('controllerDepartamento', function ($scope, $resource, $location,
     $scope.findAll = function () {
         departamentoFindAll.query(function (data) {
             $scope.departamentos = data;
-            console.log(data)
         });
     };
 
@@ -143,7 +142,7 @@ app.factory("ChamadoService", function ($resource) {
     });
 });
 
-app.controller('controllerLoginRegister', function ($scope, DepartamentoService, $resource, $location, UsuarioService) {
+app.controller('controllerLoginRegister', function ($scope, DepartamentoService, $resource, $location, UsuarioService, $rootScope) {
     const rota = "http://127.0.0.1:8080/api/usuario/";
 
     $scope.departamentos = [];
@@ -156,8 +155,6 @@ app.controller('controllerLoginRegister', function ($scope, DepartamentoService,
     $scope.findAll =
         UsuarioService.get((data) => {
             $scope.usuarios = data.usuarios;
-            console.log($scope.usuarios)
-            console.log('objeto', data.usuarios)
         })
 
     const usuarioSave = $resource(`${rota}save`);
@@ -172,9 +169,6 @@ app.controller('controllerLoginRegister', function ($scope, DepartamentoService,
             } else {
                 $location.path('/createChamado');
             }
-
-            console.log(data);
-            console.log($scope.usuario.tipo)
             $scope.usuario = {
                 nome: '',
                 email: '',
@@ -209,6 +203,7 @@ app.controller('controllerLoginRegister', function ($scope, DepartamentoService,
                     user.email === emailInput && user.senha === senhaInput
                 );
                 if (usuarioEncontrado) {
+                    $rootScope.usuarioLogado = usuarioEncontrado;
                     $location.path('/main')
                 } else {
                     alert('Dados errados')
@@ -218,7 +213,7 @@ app.controller('controllerLoginRegister', function ($scope, DepartamentoService,
     };
 })
 
-app.controller('controllerChamado', function ($scope, DepartamentoService, $resource, $timeout, ChamadoService) {
+app.controller('controllerChamado', function ($scope, DepartamentoService, $resource, $timeout, ChamadoService, $rootScope) {
 
     const rota = "http://127.0.0.1:8080/api/chamado/";
 
@@ -232,12 +227,20 @@ app.controller('controllerChamado', function ($scope, DepartamentoService, $reso
     $scope.departamento = DepartamentoService.query();
 
     const chamadoSave = $resource(`${rota}save`);
+
     $scope.save = function () {
         let chamadoData = angular.copy($scope.chamado);
         chamadoData.departamento = { id: chamadoData.departamento }
 
+        if ($rootScope.usuarioLogado) {
+            chamadoData.usuario = { id: $rootScope.usuarioLogado.id }
+        }
+        else {
+            alert('Usuário não encontrado');
+            return;
+        }
+
         chamadoSave.save(chamadoData, function (data) {
-            console.log(data);
             $scope.chamado = {
                 titulo: '',
                 descricao: '',
@@ -249,41 +252,103 @@ app.controller('controllerChamado', function ($scope, DepartamentoService, $reso
 
     $scope.chamados = [];
     ChamadoService.get(function (data) {
-         $scope.chamados = data;
-         console.log(data)
-    })
+        $scope.chamados = data.chamados;
+        let prioridadeQtd = {
+            BAIXA: 0,
+            MEDIA: 0,
+            ALTA: 0
+        };
 
-    let graficoExistente = null; // Definir no escopo do controlador
+        let statusQtd = {
+            ABERTO: 0,
+            EM_ANDAMENTO: 0,
+            CONCLUIDO: 0
+        }
 
-    $timeout(function () {
-        const graf = document.getElementById('grafico1');
-
-        if (graf) {
-            // Verifica se já existe um gráfico e o destrói antes de criar um novo
-            if (graficoExistente) {
-                graficoExistente.destroy();
+        $scope.chamados.forEach(chamado => {
+            if (prioridadeQtd[chamado.prioridade] !== undefined) {
+                prioridadeQtd[chamado.prioridade]++;
             }
+            if (statusQtd[chamado.status] !== undefined) {
+                statusQtd[chamado.status]++;
+            }
+        });
+        graficoBarra(prioridadeQtd);
+        graficoPizza(statusQtd);
 
-            graficoExistente = new Chart(graf.getContext('2d'), { // Use getContext('2d')
-                type: 'bar',
-                data: {
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                    datasets: [{
-                        label: '# of Votes',
-                        data: [12, 2, 3, 5, 2, 3],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
+    });
+
+    let graficoBarraExistente = null;
+    let graficoPizzaExistente = null;
+    function graficoBarra(prioridadeQtd) {
+        $timeout(function () {
+            const graf = document.getElementById('grafico1');
+            if (graf) {
+                if (graficoBarraExistente) {
+                    graficoBarraExistente.destroy();
+                }
+                graficoBarraExistente = new Chart(graf.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['Baixa', 'Média', 'Alta'],
+                        datasets: [{
+                            label: 'Prioridade dos chamados',
+                            data: [
+                                prioridadeQtd.BAIXA,
+                                prioridadeQtd.MEDIA,
+                                prioridadeQtd.ALTA
+                            ],
+                            // backgroundColor: ['#32c1ec'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
                         }
                     }
+                });
+            }
+        }, 300);
+    }
+
+    function graficoPizza(statusQtd) {
+        $timeout(function () {
+            const graf = document.getElementById('grafico2');
+            if (graf) {
+                if (graficoPizzaExistente) {
+                    graficoPizzaExistente.destroy();
                 }
-            });
-        }
-    }, 500);
+                graficoPizzaExistente = new 
+                Chart(graf.getContext('2d'), {
+                    type: 'pie',
+                    data: {
+                      labels: ['Aberto', 'Em andamento', 'Finalizado'],
+                      datasets: [{
+                        label: 'Status dos Chamados',
+                        data: [
+                            statusQtd.ABERTO,
+                            statusQtd.EM_ANDAMENTO,
+                            statusQtd.CONCLUIDO
+                        ],
+                        borderWidth: 1
+                      }]
+                    },
+                    options: {
+                      scales: {
+                        y: {
+                          beginAtZero: true
+                        }
+                      }
+                    }
+                  });
+            }
+        }, 300);
+
+    }
+
 
 });
 
