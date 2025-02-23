@@ -25,23 +25,24 @@
     align-items: center;
 }
 
-
 .card-area-1 {
     width: 100%;
     height: 100%;
 }
 
 .card-area-1-text {
-   height: 100%;
-   margin-left: 20px;
-   margin-top: 10px ;
+    height: 100%;
+    margin-left: 20px;
+    margin-top: 10px;
 }
 
 .card-area-1-text h1 {
-  
-        font-size: 2vw; /* 5% da largura da tela */
-    
-      
+
+    font-size: 1.7vw;
+}
+
+.card-area-1-text p {
+    font-size: 0.9vw;
 }
 
 
@@ -53,38 +54,36 @@
     width: 100%;
     height: 100%;
 }
-/*  */
-
 
 @media (min-width: 768px) {
     .card-area-2-text {
-      flex-direction: row; /* Alinha os inputs lado a lado */
-      flex-wrap: wrap;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
-  
-    .card-area-2-text label {
-      width: 120px; /* Define uma largura fixa para os labels */
-    }
-  
-    .card-area-2-text input {
-      flex: 1; /* Ocupa o espaço restante */
-      min-width: 200px;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .card-area-2-text input {
-      font-size: 0.9rem;
-      padding: 8px;
-    }
-  }
 
-.card-area-2-text{
+    .card-area-2-text label {
+        width: 120px;
+    }
+
+    .card-area-2-text input {
+        flex: 1;
+        min-width: 200px;
+        min-height: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-area-2-text input {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+}
+
+.card-area-2-text {
     margin-top: 5px;
     display: flex;
     flex-direction: column;
-} 
-
+}
 
 .card-area-3 {
     width: 100%;
@@ -92,7 +91,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
 }
 
 .card-area-3-btn {
@@ -101,7 +100,7 @@
     justify-content: flex-end;
     width: 90%;
     height: 80%;
-    gap:10px;
+    gap: 10px;
 }
 
 label {
@@ -204,34 +203,12 @@ select {
     height: 5vh;
 }
 
-
-
-/* th:nth-child(1),
-td:nth-child(1) {
-    width: 10%;
-}
-
-th:nth-child(2),
-td:nth-child(2) {
-    width: 20%;
-}
-
-th:nth-child(3),
-td:nth-child(3) {
-    width: 25%;
-}
-
 th:nth-child(4),
 td:nth-child(4) {
-    width: 15%;
+    width: 150px;
 }
 
-th:nth-child(5),
-td:nth-child(5) {
-    width: 10%;
-} */
-
-.btn-create{
+.btn-create {
     width: 5.2vw;
     height: 2.7vh;
     border: 0 #ccc;
@@ -241,13 +218,13 @@ td:nth-child(5) {
     color: #fff;
 }
 
-.btn-create:hover{
+.btn-create:hover {
     background-color: #fff;
-    color:  #66f861;
-    border: 1px solid  #66f861;
+    color: #66f861;
+    border: 1px solid #66f861;
 }
 
-.btn-clean{
+.btn-clean {
     width: 5.2vw;
     height: 2.7vh;
     border: 0 #ccc;
@@ -255,11 +232,111 @@ td:nth-child(5) {
     text-decoration: none;
     background-color: #1dbce8;
     color: #fff;
+    font-size: 0.7rem;
 }
 
-.btn-clean:hover{
+.btn-clean:hover {
     background-color: #fff;
-    color:  #1dbce8;
-    border: 1px solid  #1dbce8;
+    color: #1dbce8;
+    border: 1px solid #1dbce8;
 }
+
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 5;
+
+}
+
+.modal-content {
+    width: 18vw;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    border: 0px solid #fff;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-sp1{
+    background-color: rgb(184, 182, 182);
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.modal-sp1 h1{
+    font-size: 2vw;
+    font-size: 4vh;
+}
+
+.modal-sp2{
+    background-color: #fff;
+    height: 48vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;   
+}
+
+.modal-sp2 label {
+    margin-top: 2vh;
+    text-align: left;
+    width: 88%; 
+}
+
+.modal-sp3{
+    background-color: #fff;
+    height: 7vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content input {
+    width: 15vw;
+    height: 2.6vh;
+    border: 1px solid #929191;
+}
+
+.modal-content select {
+    width: 15vw;
+    height: 2.6vh;
+    margin: 0;
+    border: 1px solid #929191;
+}
+
+.btn-modal {
+    height: 3.5vh;
+    width: 6vw;
+    border: 0;
+    color: #fff;
+    border-radius: 8px;
+    background-color: #55cc51;
+}
+
+.btn-modal:hover {
+    border: 1px solid #55cc51;
+    color: #55cc51;
+    background-color: #fff;
+}
+
+.close {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+
+
 

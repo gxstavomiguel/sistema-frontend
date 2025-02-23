@@ -15,7 +15,6 @@
   <body id="corpo">
     <div class="form-content" ng-controller="controllerDepartamento">
       <form>
-        <!-- <form ng-submit="save();"> -->
         <div class="form-card">
 
           <div class="card-area-1">
@@ -106,7 +105,7 @@
             </tr>
 
             <tr
-              ng-repeat="departamento in departamentos | filter:filtrarDepartamento | filter:filtrarId "
+              ng-repeat="departamento in departamentos | filter:{nome: filtrarDepartamento, id:filtrarId}"
              
               ng-class="{'even': $index % 2 === 0, 'odd': $index % 2 !== 0}"
             >

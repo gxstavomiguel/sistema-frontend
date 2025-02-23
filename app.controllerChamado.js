@@ -66,11 +66,12 @@ angular.module('meuSite')
 
     let graficoBarraExistente = null;
     let graficoPizzaExistente = null;
+
     function graficoBarra(prioridadeQtd) {
-        $timeout(function () {
+      $timeout(function () {
             const graf = document.getElementById('grafico1');
             if (graf) {
-                if (graficoBarraExistente) {
+                if (graficoBarraExistente instanceof Chart) {
                     graficoBarraExistente.destroy();
                 }
                 graficoBarraExistente = new Chart(graf.getContext('2d'), {
