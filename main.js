@@ -2,7 +2,9 @@ const app = angular.module('meuSite', ['ngRoute', 'ngResource']);
 
 app.factory("DepartamentoService", function ($resource) {
     return $resource("http://localhost:8080/api/departamento/listaDepartamento", {}, {
-        query: { method: "GET", isArray: true }
+        query: { method: "GET", isArray: true },
+        findById: { method: "GET", url: "http://localhost:8080/api/departamento/findById/:id"},
+        update: { method: "PUT", url: "http://localhost:8080/api/departamento/update/:id" } 
     });
 });
 
