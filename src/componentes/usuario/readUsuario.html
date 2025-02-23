@@ -82,16 +82,6 @@
                   required
                 />
 
-                <label for="departamento">Departamento:</label>
-                <select
-                  name="departamentos"
-                  type="text"
-                  id="departamentos"
-                  ng-model="usuario.departamento"
-                  required
-                  ng-options="dep.id as dep.nome for dep in departamentos"
-                ></select>
-
                 <label for="tipo">Tipo de Usuário:</label>
                 <select name="tipo" id="tipo" ng-model="usuario.tipo" required>
                   <option value="ADMIN">Admin</option>
@@ -169,9 +159,6 @@
 
         <label for="telefone">Telefone:</label>
         <input name="telefone" type="text" id="telefoneEdit" ng-model="usuario.telefone" required />
-
-        <label for="departamento">Departamento:</label>
-        <select name="departamentos" id="departamentosEdit" ng-model="usuario.departamento" required ng-options="dep.id as dep.nome for dep in departamentos"></select>
 
         <label for="tipo">Tipo de Usuário:</label>
         <select name="tipo" id="tipoEdit" ng-model="usuario.tipo" required>

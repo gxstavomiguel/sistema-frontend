@@ -5,16 +5,8 @@ angular.module('meuSite')
                 templateUrl: 'src/componentes/main/main.html',
                 controller: 'controllerDepartamento'
             })
-            .when('/readDepartamentos', {
-                templateUrl: 'src/componentes/departamento/read/readDepartamento.html',
-                controller: 'controllerDepartamento'
-            })
             .when('/createDepartamento', {
                 templateUrl: 'src/componentes/departamento/create/createDepartamento.html',
-                controller: 'controllerDepartamento'
-            })
-            .when('/editDepartamento/:id', {
-                templateUrl: 'src/componentes/departamento/edit/editDepartamento.html',
                 controller: 'controllerDepartamento'
             })
             .when('/createChamado/', {

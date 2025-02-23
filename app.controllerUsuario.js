@@ -46,6 +46,15 @@ angular.module('meuSite')
 
         $scope.modalAberto = false;
         $scope.abrirModal = function () {
+            $scope.usuario = {
+                nome: '',
+                email: '',
+                senha: '',
+                telefone: '',
+                cargo: '',
+                tipo: '',
+                departamento: '',
+            };
             $scope.modalAberto = true
         }
 
@@ -111,7 +120,6 @@ angular.module('meuSite')
                 $scope.usuario = data;
                 $scope.modalEditAberto = true;
             })
-            
         }
         $scope.saveUsuarioEdit = function(){
             let usuarioData = angular.copy($scope.usuario);
