@@ -1,4 +1,10 @@
-const app = angular.module('meuSite', ['ngRoute', 'ngResource']);
+const app = angular.module('meuSite', ['ngRoute', 'ngResource',]);
+
+app.run(function($rootScope, $location){
+    $rootScope.homeLink = function(){
+        return $location.path() === "/register/" || $location.path() === "/login/";
+    }
+})
 
 app.factory("DepartamentoService", function ($resource) {
     return $resource("http://localhost:8080/api/departamento/listaDepartamento", {}, {

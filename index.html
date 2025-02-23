@@ -18,7 +18,7 @@
   <body id="corpo">
     <div class="header" >
       <div class="links-header">
-        <a ng-href="#!/main">Home</a>
+        <a ng-href="#!/main" ng-if="!homeLink()">Home</a>
       </div>
       <div class="content-header">
         <h1>Painel de Gerenciamento</h1>
@@ -28,11 +28,6 @@
 
       </div>
     </div>
-
-    <!-- <div class="footer">
-      <h1>Footer!</h1>
-    </div> -->
-
     <div ng-view></div>
   </body>
 </html>
