@@ -24,7 +24,8 @@ app.factory("UsuarioService", function ($resource) {
 
 app.factory("ChamadoService", function ($resource) {
     return $resource("http://localhost:8080/api/chamado/findAll", {}, {
-        get: { method: "GET", isArray: false }
+        get: { method: "GET", isArray: false },
+        findByQtd: { method: "GET", isArray: false, url:"http://localhost:8080/api/chamado/qtdchamadosbydepartamento" }
     });
 });
 

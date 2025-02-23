@@ -36,6 +36,15 @@ angular.module('meuSite')
             });
         }
 
+        $scope.chamadosPorDepartamento = {};
+        ChamadoService.findByQtd().$promise.then(function (data) {
+            $scope.chamadosPorDepartamento = data;
+            const labels = Object.keys(data).filter(key => key !== "$promise" && key !== "$resolved");
+            const dataValues = labels.map(label => data[label]);
+
+            graficoRadar(labels, dataValues);
+        });
+
         $scope.chamados = [];
         ChamadoService.get(function (data) {
             $scope.chamados = data.chamados;
@@ -51,38 +60,12 @@ angular.module('meuSite')
                 CONCLUIDO: 0
             }
 
-            let departamentoMap = {
-                48: "Administração",
-                46: "Financeiro",
-                74: "Meio Ambiente",
-                45: "Transporte e Mobilidade",
-                44: "Segurança Pública",
-                47: "TI",
-                83: "Suporte"
-            };
-
-            let departamentoQtd = {
-                "Administração": 0,
-                "Financeiro": 0,
-                "Meio Ambiente": 0,
-                "Transporte e Mobilidade": 0,
-                "Segurança Pública": 0,
-                "TI": 0,
-                "Suporte": 0,
-            };
-
-
             $scope.chamados.forEach(chamado => {
                 if (prioridadeQtd[chamado.prioridade] !== undefined) {
                     prioridadeQtd[chamado.prioridade]++;
                 }
                 if (statusQtd[chamado.status] !== undefined) {
                     statusQtd[chamado.status]++;
-                }
-
-                let nomeDepartamento = departamentoMap[chamado.departamento_id];
-                if (nomeDepartamento && departamentoQtd.hasOwnProperty(nomeDepartamento)) {
-                    departamentoQtd[nomeDepartamento]++
                 }
             });
             graficoBarra(prioridadeQtd);
@@ -158,17 +141,14 @@ angular.module('meuSite')
             }, 300);
         }
 
-        function graficoRadar(departamentoQtd) {
+        function graficoRadar(labels, dataValues) {
             $timeout(function () {
                 const graf = document.getElementById('grafico3');
                 if (graf) {
                     if (graficoRadarExistente) {
                         graficoRadarExistente.destroy();
                     }
-        
-                    const labels = Object.keys(departamentoQtd);
-                    const dataValues = Object.values(departamentoQtd);
-        
+
                     graficoRadarExistente = new Chart(graf.getContext('2d'), {
                         type: 'radar',
                         data: {
@@ -188,7 +168,7 @@ angular.module('meuSite')
                         options: {
                             scales: {
                                 r: {
-                                    beginAtZero: true  
+                                    beginAtZero: true
                                 }
                             },
                             elements: {
@@ -201,5 +181,5 @@ angular.module('meuSite')
                 }
             }, 300);
         }
-        
+
     });
