@@ -1,7 +1,14 @@
 # Painel de chamados e gerenciamento 🤖
 
 **Descrição:**  
-Este projeto consiste em um sistema de gerenciamento de chamados e usuários, separado em dois repositórios diferentes: um para o Backend, utilizando Java Spring Boot, e outro para o Frontend, utilizando AngularJS e Javascript.
+Este projeto consiste em um sistema de gerenciamento de chamados e usuários, separado em dois repositórios diferentes: um para o [Backend](https://github.com/gxstavomiguel/sistema-backend-2), utilizando Java Spring Boot, e outro para o [Frontend](https://github.com/gxstavomiguel/sistema-frontend), utilizando AngularJS e Javascript.
+
+---
+
+**Frontend:**
+- **Tecnologias:** AngularJS, JavaScript, HTML/CSS.
+- **Descrição:** Interface interativa para o gerenciamento de chamados, com gráficos e filtros personalizados.
+- **Link:** [Frontend GitHub](https://github.com/SEU_USUARIO/REPOSITORIO_FRONTEND)
 
 ---
 
@@ -46,7 +53,9 @@ Para Usuários Normais:
 
 - **postman:** Para requisições HTTP.  
 - **IDE:** IntelliJ IDEA e Visual Studio Code.
-- **PostgreSQL:** Banco de Dados responsável pela permanência dos dados.  
+- **PostgreSQL:** Banco de Dados responsável pela permanência dos dados.
+
+
 
 
 
