@@ -106,9 +106,9 @@ body {
 }
 
 #departamento {
-  position: relative; /* Garantir que o select tenha seu próprio contexto de empilhamento */
-  z-index: 10; /* Garantir que o select fique acima de outros elementos */
-  height: auto; /* Remover qualquer restrição de altura */
+  position: relative; 
+  z-index: 10; 
+  height: auto; 
   padding: 5px 10px;
 }
 
