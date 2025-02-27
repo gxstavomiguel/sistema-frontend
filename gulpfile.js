@@ -13,6 +13,7 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('dist/js')); 
 });
 
+
 gulp.task('global-styles', function() {
   return gulp.src('styles.css') 
     .pipe(cleanCSS())
