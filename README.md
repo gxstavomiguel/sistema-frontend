@@ -6,9 +6,7 @@ Este projeto consiste em um sistema de gerenciamento de chamados e usuários, se
 ---
 
 **Frontend:**
-- **Tecnologias:** AngularJS, JavaScript, HTML/CSS.
 - **Descrição:** Interface interativa para o gerenciamento de chamados, com gráficos e filtros personalizados.
-- **Link:** [Frontend GitHub](https://github.com/SEU_USUARIO/REPOSITORIO_FRONTEND)
 
 ---
 
