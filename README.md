@@ -21,18 +21,18 @@ Para Administradores:
 - Página com gráficos para o gerenciamento de chamados por departamento, prioridade ou status.
 
 ---
-![tela](./src/main/resources/img/2.png)
+![tela](./img/2.png)
 ---
-![tela](./src/main/resources/img/3.png)
+![tela](./img/3.png)
 ---
-![tela](./src/main/resources/img/5.png)
+![tela](./img/5.png)
 ---
-![tela](./src/main/resources/img/6.png)
+![tela](./img/6.png)
 
 Para Usuários Normais:
 - Abertura e cadastro de chamados.
 ---
-![tela](./src/main/resources/img/4.png)
+![tela](./img/4.png)
 ---
 
 ## 🛠️ Tecnologias Utilizadas
