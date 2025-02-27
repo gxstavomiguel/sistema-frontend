@@ -14,7 +14,7 @@
     "gulp-uglify": "^3.0.2"
   },
   "scripts": {
-  "build": "npx gulp build",
-  "start": "gulp serve"
-}
+    "build": "gulp build",
+    "start": "gulp serve"
+  }
 }
