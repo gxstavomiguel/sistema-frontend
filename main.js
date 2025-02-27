@@ -10,25 +10,25 @@ app.run(function($rootScope, $location) {
 });
 
 app.factory("DepartamentoService", function ($resource) {
-    return $resource("http://localhost:8080/api/departamento/listaDepartamento", {}, {
+    return $resource("https://sistema-backend-2-1.onrender.com/api/departamento/listaDepartamento", {}, {
         query: { method: "GET", isArray: true },
-        findById: { method: "GET", url: "http://localhost:8080/api/departamento/findById/:id"},
-        update: { method: "PUT", url: "http://localhost:8080/api/departamento/update/:id" } 
+        findById: { method: "GET", url: "https://sistema-backend-2-1.onrender.com/api/departamento/findById/:id"},
+        update: { method: "PUT", url: "https://sistema-backend-2-1.onrender.com/api/departamento/update/:id" } 
     });
 });
 
 app.factory("UsuarioService", function ($resource) {
-    return $resource("http://localhost:8080/api/usuario/findAll", {}, {
+    return $resource("https://sistema-backend-2-1.onrender.com/api/usuario/findAll", {}, {
         get: { method: "GET", isArray: false },
-        findById: { method: "GET", url: "http://localhost:8080/api/usuario/findById/:id"},
-        update: { method: "PUT", url: "http://localhost:8080/api/usuario/update/:id" } 
+        findById: { method: "GET", url: "https://sistema-backend-2-1.onrender.com/api/usuario/findById/:id"},
+        update: { method: "PUT", url: "https://sistema-backend-2-1.onrender.com/api/usuario/update/:id" } 
     });
 });
 
 app.factory("ChamadoService", function ($resource) {
-    return $resource("http://localhost:8080/api/chamado/findAll", {}, {
+    return $resource("https://sistema-backend-2-1.onrender.com/api/chamado/findAll", {}, {
         get: { method: "GET", isArray: false },
-        findByQtd: { method: "GET", isArray: false, url:"http://localhost:8080/api/chamado/qtdchamadosbydepartamento" }
+        findByQtd: { method: "GET", isArray: false, url:"https://sistema-backend-2-1.onrender.com/api/chamado/qtdchamadosbydepartamento" }
     });
 });
 
