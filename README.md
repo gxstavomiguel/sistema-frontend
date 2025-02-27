@@ -16,7 +16,7 @@ Este projeto consiste em um sistema de gerenciamento de chamados e usuários, se
 
 ---
 
-## ✨ Funcionalidades
+## 💡 Funcionalidades
 
 Para Administradores:
 - Criação de usuários com diferentes perfis (Admin e Normal).
