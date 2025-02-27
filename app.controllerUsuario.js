@@ -2,6 +2,49 @@ angular.module('meuSite')
     .controller('controllerLoginRegister', function ($scope, DepartamentoService, $resource, $location, UsuarioService, $rootScope) {
         const rota = "http://127.0.0.1:8080/api/usuario/";
 
+
+
+        $scope.usuario = $scope.usuario || {};
+        $scope.loginAdm = () => {
+            $scope.usuario.email = 'gustavo@gmail.com';
+            $scope.usuario.password = '1234';
+            $scope.login();
+        };
+        
+        $scope.loginNormal = () => {
+            $scope.usuario.email = 'teste@teste';
+            $scope.usuario.password = '1234';
+            $scope.login();
+        };
+        
+        $scope.login = () => {
+            UsuarioService.get((data) => {
+                if (data && data.usuarios) {
+                    const emailInput = $scope.usuario.email;
+                    const passwordInput = $scope.usuario.password;
+                    let usuarioEncontrado = data.usuarios.find(user =>
+                        user.email === emailInput && user.password === passwordInput
+                    );
+        
+                    if (usuarioEncontrado) {
+                        $rootScope.usuarioLogado = usuarioEncontrado;
+                        $rootScope.tipoUsuario = usuarioEncontrado.tipo; 
+                        
+                        if (usuarioEncontrado.tipo === "ADMIN") {
+                            $location.path('/main');
+                        } else {
+                            $location.path('/createChamado');
+                        }
+                    } else {
+                        alert('E-mail ou senha incorretos');
+                    }
+                }
+            });
+        };
+
+
+
+
         $scope.departamentos = [];
         $scope.usuarios = [];
 
@@ -100,7 +143,12 @@ angular.module('meuSite')
                     if (usuarioEncontrado) {
                         $rootScope.usuarioLogado = usuarioEncontrado;
                         $rootScope.tipoUsuario = usuarioEncontrado.tipo; 
-                        $location.path('/main')
+                        if(usuarioEncontrado.tipo === "ADMIN"){
+                            $location.path('/main')
+                        }else {
+                            $location.path('/createChamado')
+                        }
+                        
                     } else {
                         alert('E-mail ou senha incorretos')
                     }

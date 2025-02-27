@@ -27,7 +27,7 @@
             type="text"
             id="nome"
             ng-model="usuario.nome"
-            required
+          
           />
 
           <label for="email">E-mail:</label>
@@ -36,7 +36,7 @@
             type="email"
             id="email"
             ng-model="usuario.email"
-            required
+        
           />
 
           <label for="password">Senha:</label>
@@ -45,7 +45,7 @@
             type="password"
             id="password"
             ng-model="usuario.password"
-            required
+       
           />
 
           <label for="telefone">Telefone:</label>
@@ -54,7 +54,7 @@
             type="text"
             id="telefone"
             ng-model="usuario.telefone"
-            required
+          
           />
 
           <label for="tipo">Tipo de Usuário:</label>
@@ -62,7 +62,7 @@
             name="tipo"
             id="tipo"
             ng-model="usuario.tipo"
-            required
+          
           >
             <option value="ADMIN">Admin</option>
             <option value="NORMAL">Normal</option>
@@ -77,8 +77,15 @@
               </a>
           </div>
 
+          <div class="auto">
+          <button class="btn-auto-adm" ng-click="loginAdm()">Login Admin</button>
+          <button class="btn-auto-normal" ng-click="loginNormal()">Login Normal</button>  
         </div>
+      </div>
+
       </form>
+
+      
     </div>
   </body>
 </html>

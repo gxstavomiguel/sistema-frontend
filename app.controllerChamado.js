@@ -34,12 +34,14 @@ angular.module('meuSite')
 
             chamadoSave.save(chamadoData, function (data) {
                 $scope.chamado = {
+                    status: $scope.chamado.status,
                     titulo: '',
                     descricao: '',
                     prioridade: '',
                     departamento: ''
                 }
-            });
+                alert("Salvo com Sucesso")
+            })
         }
 
         $scope.chamadosPorDepartamento = {};

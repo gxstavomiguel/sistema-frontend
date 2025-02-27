@@ -100,7 +100,7 @@
               <td>{{departamento.id}}</td>
               <td>{{departamento.nome}}</td>
               <td>{{departamento.descricao}}</td>
-              <td>{{departamento.criadoEm}}</td>
+              <td class="data-criacao">{{departamento.criadoEm | date:'dd/MM/yyyy HH:mm'}}</td>
               <td class="actions">
                 <button class="btn-edit" ng-click="editTabela(departamento.id)">
                   Editar

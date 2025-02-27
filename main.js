@@ -1,10 +1,13 @@
 const app = angular.module('meuSite', ['ngRoute', 'ngResource',]);
 
-app.run(function($rootScope, $location){
-    $rootScope.homeLink = function(){
-        return $location.path() === "/register/" || $location.path() === "/login/";
-    }
-})
+app.run(function($rootScope, $location) {
+    $rootScope.homeLink = function() {
+        if ($location.path() === "/register/" || $location.path() === "/login/") {
+            return true; 
+        }
+        return $rootScope.tipoUsuario === 'NORMAL'; 
+    };
+});
 
 app.factory("DepartamentoService", function ($resource) {
     return $resource("http://localhost:8080/api/departamento/listaDepartamento", {}, {

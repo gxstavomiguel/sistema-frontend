@@ -68,7 +68,7 @@
             <button type="submit" class="btn-save">
               SALVAR
             </button>
-            <a ng-href="#!/readChamado">Exibir Chamados</a>
+            <a ng-if="$root.tipoUsuario !== 'NORMAL'" ng-href="#!/readChamado">Exibir Chamados</a>
           </div>
         </div>
       </form>
