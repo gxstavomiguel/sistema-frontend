@@ -27,6 +27,9 @@ angular.module('meuSite')
             let usuarioData = angular.copy($scope.usuario);
             usuarioData.departamento = { id: usuarioData.departamento }
             usuarioSave.save(usuarioData, function (data) {
+
+                $rootScope.tipoUsuario = $scope.usuario.tipo;
+
                 if ($scope.usuario.tipo === "ADMIN") {
                     $location.path('/main');
                 } else {
@@ -35,9 +38,8 @@ angular.module('meuSite')
                 $scope.usuario = {
                     nome: '',
                     email: '',
-                    senha: '',
+                    password: '',
                     telefone: '',
-                    cargo: '',
                     tipo: '',
                     departamento: '',
                 }
@@ -49,9 +51,8 @@ angular.module('meuSite')
             $scope.usuario = {
                 nome: '',
                 email: '',
-                senha: '',
+                password: '',
                 telefone: '',
-                cargo: '',
                 tipo: '',
                 departamento: '',
             };
@@ -78,9 +79,8 @@ angular.module('meuSite')
                 $scope.usuario = {
                     nome: '',
                     email: '',
-                    senha: '',
+                    password: '',
                     telefone: '',
-                    cargo: '',
                     tipo: '',
                     departamento: '',
                 };
@@ -93,15 +93,16 @@ angular.module('meuSite')
             UsuarioService.get((data) => {
                 if (data && data.usuarios) {
                     const emailInput = $scope.usuario.email;
-                    const senhaInput = $scope.usuario.senha;
+                    const passwordInput = $scope.usuario.password;
                     let usuarioEncontrado = data.usuarios.find(user =>
-                        user.email === emailInput && user.senha === senhaInput
+                        user.email === emailInput && user.password === passwordInput
                     );
                     if (usuarioEncontrado) {
                         $rootScope.usuarioLogado = usuarioEncontrado;
+                        $rootScope.tipoUsuario = usuarioEncontrado.tipo; 
                         $location.path('/main')
                     } else {
-                        alert('Dados errados')
+                        alert('E-mail ou senha incorretos')
                     }
                 }
             });
@@ -123,6 +124,7 @@ angular.module('meuSite')
         }
         $scope.saveUsuarioEdit = function(){
             let usuarioData = angular.copy($scope.usuario);
+
             if (usuarioData.departamento) {
                 usuarioData.departamento = { id: usuarioData.departamento.id }; 
             }

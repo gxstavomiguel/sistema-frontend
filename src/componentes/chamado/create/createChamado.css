@@ -36,7 +36,7 @@
     color: #fff;
   }
   
-  .form-card input, button,
+  .form-card input, button, textarea,
   .form-card select {
     width: 100%;
     padding: 5px;
@@ -112,4 +112,9 @@
 
 a {
   text-decoration: underline;
+}
+
+.txt {
+  height: 10vh;
+  resize: none;
 }

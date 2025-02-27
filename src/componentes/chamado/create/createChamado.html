@@ -26,14 +26,13 @@
             required
           />
 
+    
           <label for="descricao">Descrição</label>
-          <input
-            name="descricao"
-            type="text"
-            id="descricao"
-            ng-model="chamado.descricao"
-            required
-          />
+          <textarea class="txt" name="descricao"
+          type="text"
+          id="descricao"
+          ng-model="chamado.descricao"
+          required for="descricao">Descrição</textarea>
 
           <label for="descricao">Prioridade</label>
           <select
@@ -51,7 +50,9 @@
             ng-model="chamado.status"
             required
             ng-options="s for s in status"
+            ng-disabled="tipoUsuario === 'NORMAL'"
           ></select>
+
 
           <label for="departamento">Departamento:</label>
           <select

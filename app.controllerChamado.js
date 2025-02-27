@@ -1,6 +1,8 @@
 angular.module('meuSite')
     .controller('controllerChamado', function ($scope, DepartamentoService, $resource, $timeout, ChamadoService, $rootScope) {
 
+        $scope.tipoUsuario = $rootScope.tipoUsuario;
+
         const rota = "http://127.0.0.1:8080/api/chamado/";
 
         $scope.departamentos = [];
@@ -10,6 +12,10 @@ angular.module('meuSite')
 
         $scope.prioridades = ["BAIXA", "MEDIA", "ALTA"];
         $scope.status = ["ABERTO", "EM_ANDAMENTO", "CONCLUIDO"];
+        $scope.chamado = {
+            status: "ABERTO" 
+        };
+
         $scope.departamento = DepartamentoService.query();
 
         const chamadoSave = $resource(`${rota}save`);
@@ -70,7 +76,6 @@ angular.module('meuSite')
             });
             graficoBarra(prioridadeQtd);
             graficoPizza(statusQtd);
-            graficoRadar(departamentoQtd);
         });
 
         let graficoBarraExistente = null;

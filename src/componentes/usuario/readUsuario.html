@@ -64,12 +64,12 @@
                   required
                 />
 
-                <label for="senha">Senha:</label>
+                <label for="password">Senha:</label>
                 <input
-                  name="senha"
+                  name="password"
                   type="password"
-                  id="senha"
-                  ng-model="usuario.senha"
+                  id="password"
+                  ng-model="usuario.password"
                   required
                 />
 
@@ -85,17 +85,9 @@
                 <label for="tipo">Tipo de Usuário:</label>
                 <select name="tipo" id="tipo" ng-model="usuario.tipo" required>
                   <option value="ADMIN">Admin</option>
-                  <option value="FUNCIONARIO">Funcionário</option>
+                  <option value="NORMAL">Normal</option>
                 </select>
 
-                <label for="cargo">Cargo:</label>
-                <input
-                  name="cargo"
-                  type="text"
-                  id="cargo"
-                  ng-model="usuario.cargo"
-                  required
-                />
               </div>
 
               <div class="modal-sp3">
@@ -114,7 +106,6 @@
               <th>Email</th>
               <th>Telefone</th>
               <th>Tipo de Usuário</th>
-              <th>Cargo</th>
               <th>Última Atualização</th>
               <th>Ações</th>
             </tr>
@@ -125,9 +116,8 @@
             >
               <td>{{usuario.nome}}</td>
               <td>{{usuario.email}}</td>
-              <td>{{usuario.cargo}}</td>
-              <td>{{usuario.tipo}}</td>
               <td>{{usuario.telefone}}</td>
+              <td>{{usuario.tipo}}</td>
               <td>{{usuario.atualizadoEm | date:'dd/MM/yyyy HH:mm'}}</td>
 
               <td class="actions">
@@ -157,17 +147,18 @@
             <label for="email">E-mail:</label>
         <input name="email" type="email" id="emailEdit" ng-model="usuario.email" required />
 
+        <label for="password">Senha:</label>
+        <input name="password" type="password" id="passwordEdit" ng-model="usuario.password" required />
+
         <label for="telefone">Telefone:</label>
         <input name="telefone" type="text" id="telefoneEdit" ng-model="usuario.telefone" required />
 
         <label for="tipo">Tipo de Usuário:</label>
         <select name="tipo" id="tipoEdit" ng-model="usuario.tipo" required>
           <option value="ADMIN">Admin</option>
-          <option value="FUNCIONARIO">Funcionário</option>
+          <option value="NORMAL">Normla</option>
         </select>
 
-        <label for="cargo">Cargo:</label>
-        <input name="cargo" type="text" id="cargoEdit" ng-model="usuario.cargo" required />
             </div>
 
             <div class="modal-sp3">

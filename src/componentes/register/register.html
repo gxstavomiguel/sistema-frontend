@@ -39,12 +39,12 @@
             required
           />
 
-          <label for="senha">Senha:</label>
+          <label for="password">Senha:</label>
           <input
-            name="senha"
+            name="password"
             type="password"
-            id="senha"
-            ng-model="usuario.senha"
+            id="password"
+            ng-model="usuario.password"
             required
           />
 
@@ -65,17 +65,8 @@
             required
           >
             <option value="ADMIN">Admin</option>
-            <option value="FUNCIONARIO">Funcionário</option>
+            <option value="NORMAL">Normal</option>
           </select>
-
-          <label for="cargo">Cargo:</label>
-          <input
-            name="cargo"
-            type="text"
-            id="cargo"
-            ng-model="usuario.cargo"
-            required
-          />
 
           <div class="actions">
             <button type="submit" id="btn-salvar" class="btn-save" ng-disabled="formUsuario.$invalid">
