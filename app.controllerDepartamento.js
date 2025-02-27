@@ -1,7 +1,7 @@
 angular.module('meuSite')
     .controller('controllerDepartamento', function (DepartamentoService, $scope, $resource, $location, $routeParams) {
-        const departamentoFindById = $resource("https://sistema-backend-2-1.onrender.com/api/departamento/findById/:id");
-        const departamentoUpdate = $resource("https://sistema-backend-2-1.onrender.com/api/departamento/update/:id",
+        const departamentoFindById = $resource("http://127.0.0.1:8080/api/departamento/findById/:id");
+        const departamentoUpdate = $resource("http://127.0.0.1:8080/api/departamento/update/:id",
             { id: '@id' }, {
             'update': { method: 'PUT' }
         });
@@ -38,7 +38,7 @@ angular.module('meuSite')
             })
         }
 
-        const departamentoSave = $resource("https://sistema-backend-2-1.onrender.com/api/departamento/save");
+        const departamentoSave = $resource("http://127.0.0.1:8080/api/departamento/save");
         $scope.modalAberto = false;
         $scope.abrirModal = function () {
             $scope.modalAberto = true
@@ -62,7 +62,7 @@ angular.module('meuSite')
 
         };
 
-        const departamentoFindAll = $resource("https://sistema-backend-2-1.onrender.com/api/departamento/findAll");
+        const departamentoFindAll = $resource("http://127.0.0.1:8080/api/departamento/findAll");
         $scope.limparCampos = function () {
             $scope.filtrarDepartamento = '';
             $scope.filtrarId = '';
@@ -78,7 +78,7 @@ angular.module('meuSite')
         }
         $scope.findAll();
 
-        const departamentoDeleteById = $resource("https://sistema-backend-2-1.onrender.com/api/departamento/delete/:id");
+        const departamentoDeleteById = $resource("http://127.0.0.1:8080/api/departamento/delete/:id");
         $scope.delete = function (id) {
             departamentoDeleteById.delete({ id: id }, function () {
                 $scope.findAll();

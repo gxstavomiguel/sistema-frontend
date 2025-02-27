@@ -2,19 +2,5 @@
   "dependencies": {
     "angular-resource": "^1.8.3",
     "angular-route": "^1.8.3"
-  },
-  "devDependencies": {
-    "gulp": "^5.0.0",
-    "gulp-clean-css": "^4.3.0",
-    "gulp-cli": "^3.0.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-htmlmin": "^5.0.1",
-    "gulp-imagemin": "^6.2.0",
-    "gulp-rename": "^2.0.0",
-    "gulp-uglify": "^3.0.2"
-  },
-  "scripts": {
-    "build": "gulp build",
-    "start": "gulp serve"
   }
 }

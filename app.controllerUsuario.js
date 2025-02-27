@@ -1,6 +1,6 @@
 angular.module('meuSite')
     .controller('controllerLoginRegister', function ($scope, $resource, $location, UsuarioService, $rootScope) {
-        const rota = "https://sistema-backend-2-1.onrender.com/api/usuario/";
+        const rota = "http://127.0.0.1:8080/api/usuario/";
 
 
 

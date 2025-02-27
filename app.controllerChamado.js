@@ -3,7 +3,7 @@ angular.module('meuSite')
 
         $scope.tipoUsuario = $rootScope.tipoUsuario;
 
-        const rota = "https://sistema-backend-2-1.onrender.com/api/chamado/";
+        const rota = "http://127.0.0.1:8080/api/chamado/";
 
         $scope.departamentos = [];
         DepartamentoService.query().$promise.then(function (response) {
