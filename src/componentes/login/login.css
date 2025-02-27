@@ -111,3 +111,32 @@
     height: auto; /* Remover qualquer restrição de altura */
     padding: 5px 10px;
   }
+
+  .auto{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .btn-auto-adm{
+    width: 200px;
+    background-color: #e26931;
+  }
+  
+  .btn-auto-normal{
+    width: 200px;
+    background-color: #2695c4;
+  }
+  
+  .btn-auto-adm:hover{
+    background-color: #fa824b;
+    color: #fff;
+    border-color: #fff;
+  }
+  
+  .btn-auto-normal:hover{
+    background-color: #31bdf9;
+    color: #fff;
+    border-color: #fff;
+  }
