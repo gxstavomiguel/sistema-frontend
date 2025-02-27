@@ -5,11 +5,13 @@ Este projeto consiste em um sistema de gerenciamento de chamados e usuários, se
 
 ---
 
-## ✨ Funcionalidades
+![tela](./img/1.png)
 
-Para Usuários Normais:
-- Registro e autenticação de usuários com perfil normal.
-- Abertura e cadastro de chamados.
+
+
+---
+
+## ✨ Funcionalidades
 
 Para Administradores:
 - Criação de usuários com diferentes perfis (Admin e Normal).
@@ -18,6 +20,19 @@ Para Administradores:
 - Atualização e remoção de usuários e departamentos.
 - Página com gráficos para o gerenciamento de chamados por departamento, prioridade ou status.
 
+---
+![tela](./src/main/resources/img/2.png)
+---
+![tela](./src/main/resources/img/3.png)
+---
+![tela](./src/main/resources/img/5.png)
+---
+![tela](./src/main/resources/img/6.png)
+
+Para Usuários Normais:
+- Abertura e cadastro de chamados.
+---
+![tela](./src/main/resources/img/4.png)
 ---
 
 ## 🛠️ Tecnologias Utilizadas
